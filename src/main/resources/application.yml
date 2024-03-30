@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: ChatBot-Inteligente-com-Java-e-Spring-Boot
+  datasource:
+    url: jdbc:h2:mem:chatbotjava
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ''
+  h2:
+    console:
+      enabled: true
