@@ -5,7 +5,7 @@
 
 Para isso, utilizamos algumas das mais recentes Inteligências Artificiais (IAs) Generativas, possibilitando que nossa API "entenda" a personalidade única de cada uma para criar interações que capturam sua essência, tornando cada conversa uma experiência única.
 
-**Tecnologias Usadas:**
+## Tecnologias Usadas:
 
 - Java 21
 - Spring Boot 3
