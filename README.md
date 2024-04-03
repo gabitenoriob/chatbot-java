@@ -33,4 +33,4 @@ Assim, será possível até testar e fazer algumas requisições.
 
 
 
-Projeto desenvolvido usando como referencia o desenvolvido no evento Santander Dev Week 2024, [código de referencia:](https://github.com/digitalinnovationone/santander-dev-week-2024)
+Projeto desenvolvido usando como referencia o desenvolvido no evento Santander Dev Week 2024, [código de referencia](https://github.com/digitalinnovationone/santander-dev-week-2024)
