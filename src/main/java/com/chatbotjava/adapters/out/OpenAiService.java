@@ -8,13 +8,14 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpHeaders;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
 @ConditionalOnProperty(name = "generative-ai.provider", havingValue = "OPENAI", matchIfMissing = true)
-@FeignClient(name = "openAiApi", url = "${openai.base-url}", configuration = OpenAiChatService.Config.class)
-public interface OpenAiChatService extends GenerativeAiApi {
+@FeignClient(name = "openAiApi", url = "${openai.base-url}", configuration = OpenAiService.Config.class)
+public interface OpenAiService extends GenerativeAiApi {
 
     @PostMapping("/v1/chat/completions")
     OpenAiChatCompletionResp chatCompletion(OpenAiChatCompletionReq req);

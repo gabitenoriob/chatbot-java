@@ -7,14 +7,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
-@ConditionalOnProperty(name = "generative-ai.provider", havingValue = "OPENAI", matchIfMissing = true)
-@FeignClient(name = "geminiApi", url = "${gemini.base-url}", configuration = GeminiAiChatService.Config.class)
-public interface GeminiAiChatService extends GenerativeAiApi {
+@ConditionalOnProperty(name = "generative-ai.provider", havingValue = "GEMINI")
+@FeignClient(name = "geminiApi", url = "${gemini.base-url}", configuration = GeminiAiService.Config.class)
+public interface GeminiAiService extends GenerativeAiApi {
 
     @PostMapping("/v1beta/models/gemini-pro:generateContent")
     GeminiResp textOnlyInput(GeminiReq req);
@@ -22,18 +21,35 @@ public interface GeminiAiChatService extends GenerativeAiApi {
     @Override
     default String generateContent(String objective, String context) {
         String prompt = """
-                %s
-                %s
-                """.formatted(objective,context);
+            %s
+            %s
+            """.formatted(objective, context);
 
         GeminiReq req = new GeminiReq(List.of(
                 new Content(List.of(new Part(prompt)))
         ));
 
-        GeminiResp resp = textOnlyInput(req);
-
-        return resp.candidates().getFirst().content().parts().getFirst().text();
+        try {
+            GeminiResp resp = textOnlyInput(req);
+            return extractResponseText(resp);
+        } catch (FeignException httpErrors) {
+            return "Deu ruim! Erro de comunicação com a API do Google Gemini.";
+        } catch (Exception unexpectedError) {
+            return "Deu mais ruim ainda! O retorno da API do Google Gemini não contém os dados esperados.";
+        }
     }
+
+    private String extractResponseText(GeminiResp resp) {
+        if (resp != null && resp.candidates() != null && !resp.candidates().isEmpty()) {
+            Candidate candidate = resp.candidates().get(0);
+            if (candidate != null && candidate.content() != null && candidate.content().parts() != null
+                    && !candidate.content().parts().isEmpty()) {
+                return candidate.content().parts().get(0).text();
+            }
+        }
+        return "Resposta vazia ou inválida da API do Google Gemini.";
+    }
+
 
     record GeminiReq(List<Content> contents) { }
     record Content(List<Part> parts) { }

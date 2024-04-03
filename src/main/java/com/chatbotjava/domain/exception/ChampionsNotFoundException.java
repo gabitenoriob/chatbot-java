@@ -2,8 +2,10 @@ package com.chatbotjava.domain.exception;
 
 public class ChampionsNotFoundException extends  RuntimeException{
 
-    public ChampionsNotFoundException(Long championId){
-        super("Champion not found");
-    }
+    public class ChampionNotFoundException extends RuntimeException {
 
+        public ChampionNotFoundException(Long championId) {
+            super("Woman %d not found.".formatted(championId));
+        }
+    }
 }

@@ -8,7 +8,7 @@ public record Champions(  Long id,
     public String generateContextByQuestion(String question){
         return """
         Pergunta: %s
-        Nome do Campeão: %s
+        Nome da Figura Histórica: %s
         Função: %s
         História: %s
         """.formatted(question,this.name,this.role,this.lore);

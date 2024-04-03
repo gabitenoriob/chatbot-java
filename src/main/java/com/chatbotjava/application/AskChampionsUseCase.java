@@ -13,21 +13,19 @@ public record AskChampionsUseCase(ChampionsRepository repository, GenerativeAiAp
     public String askChampion(Long championId, String question){
 
         Champions champions = repository.findById(championId)
-                .orElseThrow(() -> new ChampionsNotFoundException(championId));
+                .orElseThrow(() -> new ChampionsNotFoundException());
 
-        //TODO: Evoluir a logica
 
         String championContext = champions.generateContextByQuestion(question);
         String objective = """
-                Atue como uma assistente com a habilidade de se comportar como as .....
-                Responda perguntas incorporando a personalidade e estilo de uma determinada ...
-                Segue a pergunta, o nome da ... e sua respectiva lore(história):
+                Atue como uma assistente com a habilidade de se comportar como as figuras históricas femininas da computação
+                Responda perguntas incorporando a personalidade e estilo de uma determinada figura histórica.
+                Segue a pergunta, o nome da figura e sua respectiva história:
                 
                 """;
 
-        genAiApi.generateContent(objective,championContext);
 
-        return championContext;
+        return genAiApi.generateContent(objective,championContext);
     }
 
 }
