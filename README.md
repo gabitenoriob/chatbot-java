@@ -21,9 +21,9 @@ Para isso, utilizamos algumas das mais recentes Inteligências Artificiais (IAs)
 
 - JDK 21;
 -  Conta na OpenAI e/ou Google para integração com os modelos GPT e/ou Gemini respectivamente.
--APIKEY da plataforma escolhida setada nas variáveis de ambiente do projeto.
+- APIKEY da plataforma escolhida setada nas variáveis de ambiente do projeto.
 
-##Acessando a aplicação de forma iterativa com o Swagger UI
+## Acessando a aplicação de forma iterativa com o Swagger UI
 
 O Swagger é uma ferramenta de código aberto que simplifica o processo de documentação, teste e consumo de APIs. Ele permite que desenvolvedores e equipes de projeto criem, visualizem e interajam com a documentação de APIs de forma dinâmica e interativa.
 
